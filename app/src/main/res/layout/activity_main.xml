@@ -18,7 +18,7 @@
         android:textSize="30sp" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/prefButton"
         android:layout_width="76dp"
         android:layout_height="61dp"
         android:layout_below="@id/warriorDiningText"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/warriorDiningText"
-        android:layout_toLeftOf="@id/imageButton">
+        android:layout_toLeftOf="@id/prefButton">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/breakfastTab"
