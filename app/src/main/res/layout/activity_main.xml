@@ -26,16 +26,6 @@
         android:layout_marginTop="-7dp"
         app:srcCompat="@android:drawable/ic_menu_manage" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menuBreakfast"
-        android:layout_width="match_parent"
-        android:layout_height="738dp"
-        android:layout_below="@+id/warriorDiningText"
-        android:layout_marginTop="90dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:scrollbars="vertical" />
-
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,4 +50,26 @@
             android:layout_height="wrap_content"
             android:text="Din Din" />
     </com.google.android.material.tabs.TabLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/prefButton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menuBreakfast"
+                android:layout_width="match_parent"
+                android:layout_height="680dp"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>
