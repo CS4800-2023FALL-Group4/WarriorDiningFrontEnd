@@ -10,10 +10,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // bundle used as a method of creating a container to pass data from fragmentA to fragmentB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         android.widget.ImageButton button = (android.widget.ImageButton) findViewById(R.id.prefButton);
         button.setOnClickListener(this);
+
+
 
     }
 
