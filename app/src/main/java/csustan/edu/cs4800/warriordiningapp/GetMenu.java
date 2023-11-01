@@ -7,8 +7,8 @@ public class GetMenu extends Container {
 
     //
     public interface Menu {
-        public void Menu(String itemName, String servingTime, int itemCal);
-        
+        public void Menu(String itemName, String menuItemID, int itemCal);
+
     }
 
 

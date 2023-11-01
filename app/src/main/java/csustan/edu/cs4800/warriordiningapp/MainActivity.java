@@ -2,11 +2,19 @@ package csustan.edu.cs4800.warriordiningapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    GetMenu getMenu;
+
+    @Override
+    public void onAttachFragment(Context context) {
+        super.onAttachFragment(context);
+        getMenu = (GetMenu) context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
