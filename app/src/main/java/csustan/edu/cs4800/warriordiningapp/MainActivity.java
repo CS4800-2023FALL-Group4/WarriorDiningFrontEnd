@@ -1,13 +1,16 @@
 package csustan.edu.cs4800.warriordiningapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends RecyclerView.Adapter implements View.OnClickListener {
     GetMenu getMenu;
 
     @Override
@@ -21,10 +24,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // bundle used as a method of creating a container to pass data from fragmentA to fragmentB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        android.widget.ImageButton button = (android.widget.ImageButton) findViewById(R.id.prefButton);
+
+        // preferences button, not finished
+        android.widget.ImageButton button = new ImageButton(R.id.prefButton);
         button.setOnClickListener(this);
 
-
+        // get menu data, not finished, need backend access
+            // going to use a fill in menu data set for now
+        GetMenu[] menuSet = new GetMenu[]{getMenu};
 
     }
 
@@ -38,5 +45,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // a screen is like an overlay over activity_main, it pauses activity_main
             break;
         }
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        // not finished
+        // declaring a viewholder to bind to the recycler menu
+        val viewHolder = LayoutInflater.from(viewGroup.context).inflate(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, viewGroup, false);
+        return viewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // not finished
+        // changing recycler menu to menu data
+        viewHolder.textView.text = menuSet[i];
+    }
+
+    @Override
+    public int getItemCount() {
+        return menuSet.size();
     }
 }
