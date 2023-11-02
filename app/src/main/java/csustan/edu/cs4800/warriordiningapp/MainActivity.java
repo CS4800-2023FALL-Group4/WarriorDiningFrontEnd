@@ -32,32 +32,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         notificationButton.setOnClickListener(new View.OnClickListener() {
-                                                  @Override
-                                                  public void onClick(View v) {
-                                                      //notification code
-                                                      NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "Notification1"); //Notification 1 can be universal
-                                                      builder.setContentTitle("Warrior Dining");
-                                                      builder.setContentText("Your food is available today!");
-                                                      builder.setSmallIcon(R.drawable.ic_launcher_background); //pass new notification icon if you fancy
-                                                      builder.setAutoCancel(true); //something for pending intent or whatever
-                                                      //boolean toggle
+            @Override
+            public void onClick(View v) {
+                //notification code
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "Notification1"); //Notification 1 can be universal
+                builder.setContentTitle("Warrior Dining");
+                builder.setContentText("Your food is available today!");
+                builder.setSmallIcon(R.drawable.ic_launcher_background); //pass new notification icon if you fancy
+                builder.setAutoCancel(true); //something for pending intent or whatever
+                //boolean toggle
 
-                                                      isCancel = !isCancel;
-                                                      if (isCancel = false){
-                                                          activeRequest = true;
-                                                      }
-                                                      else {
-                                                          activeRequest = false;
-                                                      }
-
-
+                isCancel = !isCancel;   // what is this? Not declared anywhere...
+                if (isCancel = false){
+                    activeRequest = true;
+                }
+                else {
+                    activeRequest = false;
+                }
 
 
-                                                      //following notifies user
-                                                      //use following code when api sends out matching menu item
-                                                      NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
 
-                                                      //getting perms? don't know what this wants
+
+                //following notifies user
+                //use following code when api sends out matching menu item
+                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
+
+                //getting perms? don't know what this wants
                 /*
                 if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
@@ -70,20 +70,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 */
-                                                      managerCompat.notify(1, builder.build()); //ID can be passed replace (1)
+                managerCompat.notify(1, builder.build()); //ID can be passed replace (1)
 
-                                                  }
-                                              }
+            }
+        }
         );}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        android.widget.ImageButton button = (android.widget.ImageButton) findViewById(R.id.prefButton);
-        button.setOnClickListener(this);
-
-    }
+//    @Override         // commented out for now because of function redundancy
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        android.widget.ImageButton button = (android.widget.ImageButton) findViewById(R.id.prefButton);
+//        button.setOnClickListener(this);
+//
+//    }
 
     @Override
     public void onClick(View view) {
