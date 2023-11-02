@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onAttachFragment(Context context) {
-        super.onAttachFragment(context);
+        super.onAttachFragment(context.this);
         getMenu = (GetMenu) context;
     }
 
