@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     activeRequest = false;
                 }
 
+                //test
+
 
                 //following notifies user
                 //use following code when api sends out matching menu item
