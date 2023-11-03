@@ -42,15 +42,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 builder.setAutoCancel(true); //something for pending intent or whatever
                 //boolean toggle
 
-                isCancel = !isCancel;   // what is this? Not declared anywhere...
+                isCancel = !isCancel;
                 if (isCancel = false){
                     activeRequest = true;
-                }
-                else {
+                } else {
                     activeRequest = false;
                 }
-
-
 
 
                 //following notifies user
@@ -89,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.prefButton;
+            case R.id.breakfastTab:
             // switch fragment to preferences tab and/or preferences screen
                 // fragment is like the activity_main ui, a new fragment is like a new page
                 // a screen is like an overlay over activity_main, it pauses activity_main
