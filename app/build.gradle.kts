@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "csustan.edu.cs4800.warriordiningapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "csustan.edu.cs4800.warriordiningapp"
