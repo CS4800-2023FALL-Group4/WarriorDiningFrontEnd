@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C30000"
+    android:background="#ffffff"
     tools:context=".MainActivity">
 
     <TextView
@@ -27,40 +27,22 @@
         android:layout_marginTop="-7dp"
         app:srcCompat="@android:drawable/ic_menu_manage" />
 
-    <com.google.android.material.tabs.TabLayout
+    <Button
+        android:id="@+id/fetchMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/warriorDiningText"
+        android:layout_alignBottom="@id/prefButton"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/prefButton"
+        android:text="Menu" />
+
+    <ListView
+        android:id="@+id/menuList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/warriorDiningText"
-        android:layout_toLeftOf="@id/prefButton">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/breakfastTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breakfast" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/lunchTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lunch" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/dinnerTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Din Din" />
-    </com.google.android.material.tabs.TabLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/prefButton">
-
-        <ListView
-            android:id="@+id/menuList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+        android:layout_below="@id/prefButton"
+        android:layout_alignParentBottom="false" />
 
 </RelativeLayout>

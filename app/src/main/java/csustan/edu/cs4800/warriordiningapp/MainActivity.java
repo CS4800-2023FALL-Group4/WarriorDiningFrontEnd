@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initializeMenu();
-        new fetchMenu().start();
-        
-//        binding.fetchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new fetchMenu().start();
-//            }
-//        });
+        // new fetchMenu().start();
+
+        binding.fetchMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new fetchMenu().start();
+            }
+        });
     }
 
     private void initializeMenu() {
