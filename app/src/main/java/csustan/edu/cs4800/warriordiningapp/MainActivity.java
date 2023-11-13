@@ -35,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        // sets the view to main activity
         setContentView(binding.getRoot());
 
         initializeMenu();
         // new fetchMenu().start();
 
         binding.fetchMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override   // haven't found an onload feature yet, will do next
             public void onClick(View v) {
                 new fetchMenu().start();
             }
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeMenu() {
-
+        // making menu array and adapter to populate the listview
         menuList = new ArrayList<>();
         menuAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,menuList);
         binding.menuList.setAdapter(menuAdapter);
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class fetchMenu extends Thread {
+        // thread to do it in the background
+        // blank string that will be used to concatenate data
         String data = "";
 
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             menuHandler.post(new Runnable() {
                 @Override
                 public void run() {
-
+                    // small little thing giving feedback telling the user something is happening
                     progressDialog = new ProgressDialog(MainActivity.this);
                     progressDialog.setMessage("Fetching Menu...");
                     progressDialog.setCancelable(false);
@@ -77,17 +80,21 @@ public class MainActivity extends AppCompatActivity {
             });
 
             try {
+                // connecting to our backend
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
                 BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
                 String line;
 
                 while ((line = bReader.readLine()) != null) {
+                    // while loop to loop through data
                     data = data + line;
                 }
 
                 if (!data.isEmpty()) {
+                    // JSON stuff to temporarily keep data that is fetched
                     JSONObject jObject = new JSONObject(data);
                     JSONArray menu = jObject.getJSONArray("menus");
                     menuList.clear();
@@ -112,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
 
                     if (progressDialog.isShowing()) {
+                        // check if progress is showing, aka done
                         progressDialog.dismiss();
                     }
                     menuAdapter.notifyDataSetChanged();
