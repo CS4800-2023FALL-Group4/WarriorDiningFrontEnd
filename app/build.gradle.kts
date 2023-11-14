@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "csustan.edu.cs4800.warriordiningapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "csustan.edu.cs4800.warriordiningapp"
@@ -22,6 +22,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
