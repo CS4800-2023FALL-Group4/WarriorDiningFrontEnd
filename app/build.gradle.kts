@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "csustan.edu.cs4800.warriordiningapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
