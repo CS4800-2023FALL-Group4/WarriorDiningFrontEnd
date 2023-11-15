@@ -16,6 +16,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button notificationButton;
     public boolean isCancel = true;
     public boolean activeRequest = false; //use boolean active request for notification
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // FCM SDK (and your app) can post notifications.
+                } else {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,34 +49,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 builder.setSmallIcon(R.drawable.ic_launcher_background); //pass new notification icon if you fancy
                 builder.setAutoCancel(true); //something for pending intent or whatever
                 //boolean toggle
-
                 isCancel = !isCancel;
                 if (isCancel = false){
                     activeRequest = true;
                 } else {
                     activeRequest = false;
                 }
-
-                //test
-
-
                 //following notifies user
                 //use following code when api sends out matching menu item
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
 
-                //getting perms? don't know what this wants
-                /*
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+                private void askNotificationPermission() {
+                    // This is only necessary for API level >= 33 (TIRAMISU)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                                PackageManager.PERMISSION_GRANTED) {
+                            // FCM SDK (and your app) can post notifications.
+                        } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                            // TODO: display an educational UI explaining to the user the features that will be enabled
+                            //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                            //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                            //       If the user selects "No thanks," allow the user to continue without notifications.
+                        } else {
+                            // Directly ask for the permission
+                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                        }
+                    }
                 }
-                */
+
                 managerCompat.notify(1, builder.build()); //ID can be passed replace (1)
 
             }
