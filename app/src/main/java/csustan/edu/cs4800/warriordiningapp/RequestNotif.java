@@ -1,9 +1,12 @@
-package com.example.notification;
-//irrelevant class please ignore
+package csustan.edu.cs4800.warriordiningapp;
+//notification controller
 public class RequestNotif {
-   public static boolean isRequested(boolean request){
+    //public static boolean request;
+    public static boolean isRequested;
+    public boolean activeRequest;
+   boolean isRequested(boolean activeRequest){
        if
-       (request = true){
+       (activeRequest = true){
            return true;
        }
        else
@@ -12,11 +15,10 @@ public class RequestNotif {
 
    }
    public static void main(String[] args){
-       boolean request;
 
        do {
-          request = boolean;
-       } while (isRequested(request));
+         // request = boolean; //send notification while isRequested(true)
+       } while (isRequested(activeRequest));
    }
     }
 
