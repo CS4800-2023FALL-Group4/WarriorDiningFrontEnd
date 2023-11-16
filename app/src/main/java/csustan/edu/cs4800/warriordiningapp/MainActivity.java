@@ -20,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import csustan.edu.cs4800.warriordiningapp.databinding.ActivityMainBinding;
 
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     data = data + line;
                 }
 
+
                 if (!data.isEmpty()) {
                     // JSON stuff to temporarily keep data that is fetched
                     JSONObject jObject = new JSONObject(data);
@@ -109,11 +111,43 @@ public class MainActivity extends AppCompatActivity {
 
                     for (int i = 0; i < menu.length(); i++) {
                         JSONObject menuItems = menu.getJSONObject(i);
-                        String menuItem = menuItems.getString("foods");
-                        System.out.println(menuItem);
-                        menuList.add(menuItem);
+//                        String menuItem = gson.fromJson(String.valueOf(menuItems), (Type) MenuItem.class);
+                        String s_menuItem = menuItems.getString("foods");
+                        String[] menuArray = s_menuItem.split(",");
+                        // menuItem.setMenu(menuArray[i], menuArray[i+1], menuArray[i+2]);
+
+                        String name = Arrays.toString(menuArray[i].split("\\W+", menuArray[i].toCharArray().length-1));
+                        String menuItemId = Arrays.toString(menuArray[i+1].split("\\W+", menuArray[i+1].toCharArray().length-1));
+                        String category = Arrays.toString(menuArray[i+2].split("\\W+", menuArray[i+2].toCharArray().length-1));
+
+                        String menuInfo = name.replaceAll("[^a-zA-Z]", "") + " " + menuItemId.replaceAll("[^a-zA-Z0-9]", "") + " " + category.replaceAll("[^a-zA-Z]", "");
+                        menuList.add(menuInfo);
+
+//                        menuList.add(menuArray[]);
+
+                        for (int j = 0; j < menuArray.length; j++) {
+//                            String menuInfo = Arrays.toString(menuArray[j].split("\\W+", menuArray[j].toCharArray().length-1));
+
+                            menuArray[j] = "";
+//                            menuList.add(menuInfo);
+                        }
+
                     }
                 }
+
+//                if (!data.isEmpty()) {
+//                    // JSON stuff to temporarily keep data that is fetched
+//                    JSONObject jObject = new JSONObject(data);
+//                    JSONArray menu = jObject.getJSONArray("menus");
+//                    menuList.clear();
+//
+//                    for (int i = 0; i < menu.length(); i++) {
+//                        JSONObject menuItems = menu.getJSONObject(i);
+//                        String menuItem = menuItems.getString("foods");
+//                        System.out.println(menuItem);
+//                        menuList.add(menuItem);
+//                    }
+//                }
 
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
