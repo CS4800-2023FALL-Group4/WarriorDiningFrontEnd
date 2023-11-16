@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         initializeMenu();
         // onload menu fetch
+        // probably will change to add methods for each menu type
+        // (i.e. fetchBreakfast(), fetchLunch(), fetchDinner()
         new fetchMenu().start();
 
         binding.fetchMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         binding.menuList.setAdapter(menuAdapter);
 
     }
+
+    // make separate fetch menu methods
+    // fetchBreakfast()
+    //
 
     class fetchMenu extends Thread {
         // thread to do it in the background

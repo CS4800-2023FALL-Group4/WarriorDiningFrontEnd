@@ -28,15 +28,33 @@
         app:srcCompat="@android:drawable/ic_menu_manage" />
 
     <Button
-        android:id="@+id/fetchMenuButton"
+        android:id="@+id/fetchBreakfastMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/warriorDiningText"
         android:layout_alignBottom="@id/prefButton"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="6dp"
+        android:text="Breakfast" />
+
+    <Button
+        android:id="@+id/fetchLunchMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/fetchBreakfastMenuButton"
+        android:text="Lunch" />
+
+    <Button
+        android:id="@+id/fetchDinnerMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
+        android:layout_marginLeft="10dp"
         android:layout_toLeftOf="@id/prefButton"
-        android:text="Menu" />
+        android:layout_toRightOf="@id/fetchLunchMenuButton"
+        android:text="Dinner" />
 
     <ListView
         android:id="@+id/menuList"
