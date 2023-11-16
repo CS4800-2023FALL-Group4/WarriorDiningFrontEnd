@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         // (i.e. fetchBreakfast(), fetchLunch(), fetchDinner()
         new fetchMenu().start();
 
-        binding.fetchMenuButton.setOnClickListener(new View.OnClickListener() {
+        binding.fetchBreakfastMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override   // haven't found an onload feature yet, will do next
             public void onClick(View v) {
-                new fetchMenu().start();
+                new fetchBreakfastMenu().start();
             }
         });
     }
@@ -63,6 +63,81 @@ public class MainActivity extends AppCompatActivity {
     // make separate fetch menu methods
     // fetchBreakfast()
     //
+
+
+    class fetchBreakfastMenu extends Thread {
+        // thread to do it in the background
+        // blank string that will be used to concatenate data
+        String data = "";
+
+
+        @Override
+        public void run() {
+
+
+            menuHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    // small little thing giving feedback telling the user something is happening
+                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("Fetching Breakfast Menu...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                }
+            });
+
+            try {
+                // connecting to our backend
+                URL url = new URL("https://warrior-dining-server.replit.app/menu");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                // creating an inputstream and bufferedreader to read in data
+                InputStream iStream = httpURLConnection.getInputStream();
+                BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
+                String line;
+
+                while ((line = bReader.readLine()) != null) {
+                    // while loop to loop through data
+                    data = data + line;
+                }
+
+                if (!data.isEmpty()) {
+                    // JSON stuff to temporarily keep data that is fetched
+                    JSONObject jObject = new JSONObject(data);
+                    JSONArray menu = jObject.getJSONArray("menus");
+                    menuList.clear();
+
+                    for (int i = 0; i < menu.length(); i++) {
+                        JSONObject menuItems = menu.getJSONObject(i);
+                        String menuItem = menuItems.getString("foods");
+                        System.out.println(menuItem);
+                        menuList.add(menuItem);
+                    }
+                }
+
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            menuHandler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    if (progressDialog.isShowing()) {
+                        // check if progress is showing, aka done
+                        progressDialog.dismiss();
+                    }
+                    menuAdapter.notifyDataSetChanged();
+
+                }
+            });
+
+        }
+    }
 
     class fetchMenu extends Thread {
         // thread to do it in the background
