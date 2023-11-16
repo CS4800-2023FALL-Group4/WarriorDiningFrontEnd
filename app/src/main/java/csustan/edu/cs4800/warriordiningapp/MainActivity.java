@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initializeMenu();
-        // new fetchMenu().start();
+        // onload menu fetch
+        new fetchMenu().start();
 
         binding.fetchMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override   // haven't found an onload feature yet, will do next
