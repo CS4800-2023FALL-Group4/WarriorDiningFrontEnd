@@ -2,21 +2,23 @@ package csustan.edu.cs4800.warriordiningapp;
 //notification controller
 public class RequestNotif {
     //public static boolean request;
-    public static boolean isRequested;
+    public boolean isRequested;
     public boolean activeRequest;
 
-    boolean isRequested(activeRequest){
-       if
-       (activeRequest = true){
-           return true;
-       }
-       else
-       { return false;}
+    boolean isRequested(activeRequest){  //trying to make isRequested set to true when activeRequest is true
+        //see do while statement below. While isRequested is true from activeRequest
+        if
+        (activeRequest = true){
+            return true;
+        }
+        else
+        { return false;}
 
 
-   }
+    }
 
-   public static void main(String[] args){
+   public void main(String[] args){
+
 
        do {
            //retrieve token
@@ -39,7 +41,12 @@ public class RequestNotif {
                        }
                    });
         //send notification while isRequested(true)
-       } while (isRequested(activeRequest));
+       } while (isRequested=true);
    }
+
+  // public void run (String[] args) throws Exception{
+
+ //  }
+
     }
 
