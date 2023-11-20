@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> menuAdapter;
     Handler menuHandler = new Handler();
     ProgressDialog progressDialog;
+    private int textSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -435,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
 
                         menuList.add(fullMenuItem);
                     }
@@ -464,5 +465,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 
 }
