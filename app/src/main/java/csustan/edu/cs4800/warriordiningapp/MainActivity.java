@@ -40,15 +40,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initializeMenu();
-        // onload menu fetch
+        // onload menu fetch, automatically loads breakfast menu
         // probably will change to add methods for each menu type
-        // (i.e. fetchBreakfast(), fetchLunch(), fetchDinner()
+        // (i.e. fetchBreakfast(), fetchLunch(), fetchDinner()) X
         new fetchMenu().start();
 
         binding.fetchBreakfastMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override   // haven't found an onload feature yet, will do next
+            @Override   // onload method found and created X
             public void onClick(View v) {
                 new fetchBreakfastMenu().start();
+            }
+        });
+
+        binding.fetchLunchMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new fetchLunchMenu().start();
+            }
+        });
+
+        binding.fetchDinnerMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new fetchDinnerMenu().start();
             }
         });
     }
@@ -108,32 +122,58 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jObject = new JSONObject(data);
                     JSONArray menu = jObject.getJSONArray("menus");
                     menuList.clear();
+                    // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
+                    JSONObject menuType = menu.getJSONObject(0);
+                    // from menuType, make an array for foods
+                    JSONArray menuItems = menuType.getJSONArray("foods");
 
-                    for (int i = 0; i < menu.length(); i++) {
-                        JSONObject menuItems = menu.getJSONObject(i);
-//                        String menuItem = gson.fromJson(String.valueOf(menuItems), (Type) MenuItem.class);
-                        String s_menuItem = menuItems.getString("foods");
-                        String[] menuArray = s_menuItem.split(",");
-                        // menuItem.setMenu(menuArray[i], menuArray[i+1], menuArray[i+2]);
+                    for (int i = 0; i < menuItems.length(); i++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject food = menuItems.getJSONObject(i);
+                        String menuItemName = food.getString("name");
+                        String menuItemId = food.getString("menuItemId");
+                        String menuItemCategory = food.getString("category");
 
-                        String name = Arrays.toString(menuArray[i].split("\\W+", menuArray[i].toCharArray().length-1));
-                        String menuItemId = Arrays.toString(menuArray[i+1].split("\\W+", menuArray[i+1].toCharArray().length-1));
-                        String category = Arrays.toString(menuArray[i+2].split("\\W+", menuArray[i+2].toCharArray().length-1));
+                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
 
-                        String menuInfo = name.replaceAll("[^a-zA-Z ]", "") + " " + menuItemId.replaceAll("[^a-zA-Z0-9]", "") + " " + category.replaceAll("[^a-zA-Z]", "");
-                        menuList.add(menuInfo);
-
-//                        menuList.add(menuArray[]);
-
-                        for (int j = 0; j < menuArray.length; j++) {
-//                            String menuInfo = Arrays.toString(menuArray[j].split("\\W+", menuArray[j].toCharArray().length-1));
-
-                            menuArray[j] = "";
-//                            menuList.add(menuInfo);
-                        }
-
+                        menuList.add(fullMenuItem);
                     }
                 }
+
+                // previous attempt to show that I actually do code a lot of different methods
+                    // but normally end up erasing anything I don't use because it clutters the codebase
+//                if (!data.isEmpty()) {
+//                    // JSON stuff to temporarily keep data that is fetched
+//                    JSONObject jObject = new JSONObject(data);
+//                    JSONArray menu = jObject.getJSONArray("menus");
+//                    menuList.clear();
+//                    JSONObject menuItems = menu.getJSONObject(0);
+//
+//
+//                    for (int i = 0; i < menuItems.length(); i++) {
+////                        String menuItem = gson.fromJson(String.valueOf(menuItems), (Type) MenuItem.class);
+//                        String s_menuItem = menuItems.getString("foods");
+//                        String[] menuArray = s_menuItem.split(",");
+//                        // menuItem.setMenu(menuArray[i], menuArray[i+1], menuArray[i+2]);
+//
+//                        String name = Arrays.toString(menuArray[i].split("\\W+", menuArray[i].toCharArray().length-1));
+//                        String menuItemId = Arrays.toString(menuArray[i+1].split("\\W+", menuArray[i+1].toCharArray().length-1));
+//                        String category = Arrays.toString(menuArray[i+2].split("\\W+", menuArray[i+2].toCharArray().length-1));
+//
+//                        String menuInfo = name.replaceAll("[^a-zA-Z0-9\\s]", "") + " " + menuItemId.replaceAll("[^a-zA-Z0-9\\s]", "") + " " + category.replaceAll("[^a-zA-Z0-9\\s]", "") + "\n";
+//                        menuList.add(menuInfo);
+//
+////                        menuList.add(menuArray[]);
+//
+//                        for (int j = 0; j < menuArray.length; j++) {
+//////                            String menuInfo = Arrays.toString(menuArray[j].split("\\W+", menuArray[j].toCharArray().length-1));
+////
+//                            menuArray[j] = "";
+//////                            menuList.add(menuInfo);
+//                        }
+//
+//                    }
+//                }
 
 //                if (!data.isEmpty()) {
 //                    // JSON stuff to temporarily keep data that is fetched
@@ -172,6 +212,175 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    class fetchLunchMenu extends Thread {
+        // thread to do it in the background
+        // blank string that will be used to concatenate data
+        String data = "";
+
+
+        @Override
+        public void run() {
+
+
+            menuHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    // small little thing giving feedback telling the user something is happening
+                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("Fetching Breakfast Menu...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                }
+            });
+
+            try {
+                // connecting to our backend
+                URL url = new URL("https://warrior-dining-server.replit.app/menu");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                // creating an inputstream and bufferedreader to read in data
+                InputStream iStream = httpURLConnection.getInputStream();
+                BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
+                String line;
+
+                while ((line = bReader.readLine()) != null) {
+                    // while loop to loop through data
+                    data = data + line;
+                }
+
+
+                if (!data.isEmpty()) {
+                    // JSON stuff to temporarily keep data that is fetched
+                    JSONObject jObject = new JSONObject(data);
+                    JSONArray menu = jObject.getJSONArray("menus");
+                    menuList.clear();
+                    // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
+                    JSONObject menuType = menu.getJSONObject(1);
+                    // from menuType, make an array for foods
+                    JSONArray menuItems = menuType.getJSONArray("foods");
+
+                    for (int i = 0; i < menuItems.length(); i++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject food = menuItems.getJSONObject(i);
+                        String menuItemName = food.getString("name");
+                        String menuItemId = food.getString("menuItemId");
+                        String menuItemCategory = food.getString("category");
+
+                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+
+                        menuList.add(fullMenuItem);
+                    }
+                }
+
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            menuHandler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    if (progressDialog.isShowing()) {
+                        // check if progress is showing, aka done
+                        progressDialog.dismiss();
+                    }
+                    menuAdapter.notifyDataSetChanged();
+
+                }
+            });
+
+        }
+    }
+
+    class fetchDinnerMenu extends Thread {
+        // thread to do it in the background
+        // blank string that will be used to concatenate data
+        String data = "";
+
+
+        @Override
+        public void run() {
+
+
+            menuHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    // small little thing giving feedback telling the user something is happening
+                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("Fetching Breakfast Menu...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                }
+            });
+
+            try {
+                // connecting to our backend
+                URL url = new URL("https://warrior-dining-server.replit.app/menu");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                // creating an inputstream and bufferedreader to read in data
+                InputStream iStream = httpURLConnection.getInputStream();
+                BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
+                String line;
+
+                while ((line = bReader.readLine()) != null) {
+                    // while loop to loop through data
+                    data = data + line;
+                }
+
+
+                if (!data.isEmpty()) {
+                    // JSON stuff to temporarily keep data that is fetched
+                    JSONObject jObject = new JSONObject(data);
+                    JSONArray menu = jObject.getJSONArray("menus");
+                    menuList.clear();
+                    // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
+                    JSONObject menuType = menu.getJSONObject(2);
+                    // from menuType, make an array for foods
+                    JSONArray menuItems = menuType.getJSONArray("foods");
+
+                    for (int i = 0; i < menuItems.length(); i++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject food = menuItems.getJSONObject(i);
+                        String menuItemName = food.getString("name");
+                        String menuItemId = food.getString("menuItemId");
+                        String menuItemCategory = food.getString("category");
+
+                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+
+                        menuList.add(fullMenuItem);
+                    }
+                }
+
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            menuHandler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    if (progressDialog.isShowing()) {
+                        // check if progress is showing, aka done
+                        progressDialog.dismiss();
+                    }
+                    menuAdapter.notifyDataSetChanged();
+
+                }
+            });
+
+        }
+    }
+
 
     class fetchMenu extends Thread {
         // thread to do it in the background
@@ -214,11 +423,21 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jObject = new JSONObject(data);
                     JSONArray menu = jObject.getJSONArray("menus");
                     menuList.clear();
+                    // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
+                    JSONObject menuType = menu.getJSONObject(0);
+                    // from menuType, make an array for foods
+                    JSONArray menuItems = menuType.getJSONArray("foods");
 
-                    for (int i = 0; i < menu.length(); i++) {
-                        JSONObject menuItems = menu.getJSONObject(i);
-                        String menuItem = menuItems.getString("foods");
-                        menuList.add(menuItem);
+                    for (int i = 0; i < menuItems.length(); i++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject food = menuItems.getJSONObject(i);
+                        String menuItemName = food.getString("name");
+                        String menuItemId = food.getString("menuItemId");
+                        String menuItemCategory = food.getString("category");
+
+                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+
+                        menuList.add(fullMenuItem);
                     }
                 }
 
