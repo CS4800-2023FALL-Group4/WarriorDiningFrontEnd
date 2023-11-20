@@ -1,5 +1,7 @@
 package csustan.edu.cs4800.warriordiningapp;
 
+import csustan.edu.cs4800.warriordiningapp.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     SimpleAdapter menuAdapter;
     Handler menuHandler = new Handler();
     ProgressDialog progressDialog;
+    public MenuItem[] theBreakfastMenu = new MenuItem[];
+    public MenuItem[] lunchMenu = new MenuItem[];
+    public MenuItem[] dinnerMenu = new MenuItem[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +98,10 @@ public class MainActivity extends AppCompatActivity {
         String data = "";
 
 
-        @Override
-        public void run() {
+        if (theBreakfastMenu) {
+
+            @Override
+            public void run () {
 
 
             menuHandler.post(new Runnable() {
@@ -152,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // previous attempt to show that I actually do code a lot of different methods
-                    // but normally end up erasing anything I don't use because it clutters the codebase
+                // but normally end up erasing anything I don't use because it clutters the codebase
 //                if (!data.isEmpty()) {
 //                    // JSON stuff to temporarily keep data that is fetched
 //                    JSONObject jObject = new JSONObject(data);
@@ -221,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+        }
         }
     }
 

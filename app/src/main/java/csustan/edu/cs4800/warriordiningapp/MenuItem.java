@@ -11,6 +11,12 @@ public class MenuItem {
         this.category = category;
     }
 
+    public int menuLength(MenuItem[] menu) {
+        int menuSize = menu.length;
+
+        return menuSize;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
