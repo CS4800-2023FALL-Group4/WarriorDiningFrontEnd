@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.SimpleAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,17 +22,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import csustan.edu.cs4800.warriordiningapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;    // gotta bind the fragment
-    ArrayList<String> menuList;     // ArrayList for menu later
-    ArrayAdapter<String> menuAdapter;
+    // ArrayList<String> menuList;     // ArrayList for menu later
+    List<Map<String, String>> menuList = new ArrayList<Map<String, String>>();
+    SimpleAdapter menuAdapter;
     Handler menuHandler = new Handler();
     ProgressDialog progressDialog;
-    private int textSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
     private void initializeMenu() {
         // making menu array and adapter to populate the listview
         menuList = new ArrayList<>();
-        menuAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,menuList);
+        menuAdapter = new SimpleAdapter(this, menuList, android.R.layout.simple_list_item_2,
+                new String[] {"name", "category"},
+                new int[] {android.R.id.text1, android.R.id.text2});
         binding.menuList.setAdapter(menuAdapter);
 
     }
@@ -135,9 +141,13 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
 
-                        menuList.add(fullMenuItem);
+                        Map<String, String> data = new HashMap<>(2);
+                        data.put("category", menuItemCategory);
+                        data.put("name", menuItemName);
+
+                        menuList.add(data);
                     }
                 }
 
@@ -268,9 +278,13 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
 
-                        menuList.add(fullMenuItem);
+                        Map<String, String> data = new HashMap<>(2);
+                        data.put("category", menuItemCategory);
+                        data.put("name", menuItemName);
+
+                        menuList.add(data);
                     }
                 }
 
@@ -352,9 +366,13 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = menuItemName + " " + menuItemId + " " + menuItemCategory;
+                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
 
-                        menuList.add(fullMenuItem);
+                        Map<String, String> data = new HashMap<>(2);
+                        data.put("category", menuItemCategory);
+                        data.put("name", menuItemName);
+
+                        menuList.add(data);
                     }
                 }
 
@@ -438,7 +456,11 @@ public class MainActivity extends AppCompatActivity {
 
                         String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
 
-                        menuList.add(fullMenuItem);
+                        Map<String, String> data = new HashMap<>(2);
+                        data.put("category", menuItemCategory);
+                        data.put("name", menuItemName);
+
+                        menuList.add(data);
                     }
                 }
 
