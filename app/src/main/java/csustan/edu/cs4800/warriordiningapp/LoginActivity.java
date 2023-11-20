@@ -1,4 +1,4 @@
-///* package csustan.edu.cs4800.warriordiningapp;
+package csustan.edu.cs4800.warriordiningapp;
 
 
 import android.content.Intent;
@@ -110,7 +110,7 @@ private void sendSignInLink(String Email) {
                         }
                     });
         }
-    } } *////
+    } }
 
 
 
