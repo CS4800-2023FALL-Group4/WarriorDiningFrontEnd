@@ -25,7 +25,8 @@
         android:layout_below="@id/warriorDiningText"
         android:layout_alignRight="@id/warriorDiningText"
         android:layout_marginTop="-7dp"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        app:srcCompat="@android:drawable/ic_menu_manage"
+        android:backgroundTint="@color/design_default_color_error" />
 
     <Button
         android:id="@+id/fetchBreakfastMenuButton"
@@ -35,6 +36,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="6dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@color/white"
         android:text="Breakfast" />
 
     <Button
@@ -44,6 +47,8 @@
         android:layout_alignBottom="@id/fetchBreakfastMenuButton"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/fetchBreakfastMenuButton"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@color/white"
         android:text="Lunch" />
 
     <Button
@@ -54,6 +59,8 @@
         android:layout_marginLeft="10dp"
         android:layout_toLeftOf="@id/prefButton"
         android:layout_toRightOf="@id/fetchLunchMenuButton"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@color/white"
         android:text="Dinner" />
 
     <ListView

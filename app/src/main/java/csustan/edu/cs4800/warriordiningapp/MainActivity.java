@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemId = Arrays.toString(menuArray[i+1].split("\\W+", menuArray[i+1].toCharArray().length-1));
                         String category = Arrays.toString(menuArray[i+2].split("\\W+", menuArray[i+2].toCharArray().length-1));
 
-                        String menuInfo = name.replaceAll("[^a-zA-Z]", "") + " " + menuItemId.replaceAll("[^a-zA-Z0-9]", "") + " " + category.replaceAll("[^a-zA-Z]", "");
+                        String menuInfo = name.replaceAll("[^a-zA-Z ]", "") + " " + menuItemId.replaceAll("[^a-zA-Z0-9]", "") + " " + category.replaceAll("[^a-zA-Z]", "");
                         menuList.add(menuInfo);
 
 //                        menuList.add(menuArray[]);
