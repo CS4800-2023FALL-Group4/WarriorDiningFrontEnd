@@ -1,6 +1,8 @@
+// *** Author: Daniel Coffland ***
+
 package csustan.edu.cs4800.warriordiningapp;
 
-import csustan.edu.cs4800.warriordiningapp.MenuItem;
+import csustan.edu.cs4800.warriordiningapp.MenuItem.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,8 +29,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 import csustan.edu.cs4800.warriordiningapp.databinding.ActivityMainBinding;
+
+// *** Author: Daniel Coffland ***
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     SimpleAdapter menuAdapter;
     Handler menuHandler = new Handler();
     ProgressDialog progressDialog;
-    public MenuItem[] theBreakfastMenu = new MenuItem[];
-    public MenuItem[] lunchMenu = new MenuItem[];
-    public MenuItem[] dinnerMenu = new MenuItem[];
+    public MenuItem breakfastMenu[] = new MenuItem[99];
+    public MenuItem lunchMenu[];
+    public MenuItem dinnerMenu[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         // making menu array and adapter to populate the listview
         menuList = new ArrayList<>();
         menuAdapter = new SimpleAdapter(this, menuList, android.R.layout.simple_list_item_2,
-                new String[] {"name", "category"},
-                new int[] {android.R.id.text1, android.R.id.text2});
+                new String[]{"name", "category"},
+                new int[]{android.R.id.text1, android.R.id.text2});
         binding.menuList.setAdapter(menuAdapter);
 
     }
@@ -97,69 +102,71 @@ public class MainActivity extends AppCompatActivity {
         // blank string that will be used to concatenate data
         String data = "";
 
+        int menuSize = MenuItem.menuLength(breakfastMenu);
 
-        if (theBreakfastMenu) {
+        @Override
+        public void run() {
 
-            @Override
-            public void run () {
+//            if (menuSize == 0) {
 
+                menuHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // small little thing giving feedback telling the user something is happening
+                        progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Fetching Breakfast Menu...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
 
-            menuHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    // small little thing giving feedback telling the user something is happening
-                    progressDialog = new ProgressDialog(MainActivity.this);
-                    progressDialog.setMessage("Fetching Breakfast Menu...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
-
-                }
-            });
-
-            try {
-                // connecting to our backend
-                URL url = new URL("https://warrior-dining-server.replit.app/menu");
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                // creating an inputstream and bufferedreader to read in data
-                InputStream iStream = httpURLConnection.getInputStream();
-                BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
-                String line;
-
-                while ((line = bReader.readLine()) != null) {
-                    // while loop to loop through data
-                    data = data + line;
-                }
-
-
-                if (!data.isEmpty()) {
-                    // JSON stuff to temporarily keep data that is fetched
-                    JSONObject jObject = new JSONObject(data);
-                    JSONArray menu = jObject.getJSONArray("menus");
-                    menuList.clear();
-                    // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
-                    JSONObject menuType = menu.getJSONObject(0);
-                    // from menuType, make an array for foods
-                    JSONArray menuItems = menuType.getJSONArray("foods");
-
-                    for (int i = 0; i < menuItems.length(); i++) {
-                        // from the foods array, get the specific value from the corresponding key
-                        JSONObject food = menuItems.getJSONObject(i);
-                        String menuItemName = food.getString("name");
-                        String menuItemId = food.getString("menuItemId");
-                        String menuItemCategory = food.getString("category");
-
-                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
-
-                        Map<String, String> data = new HashMap<>(2);
-                        data.put("category", menuItemCategory);
-                        data.put("name", menuItemName);
-
-                        menuList.add(data);
                     }
-                }
+                });
 
-                // previous attempt to show that I actually do code a lot of different methods
-                // but normally end up erasing anything I don't use because it clutters the codebase
+                try {
+                    // connecting to our backend
+                    URL url = new URL("https://warrior-dining-server.replit.app/menu");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    // creating an inputstream and bufferedreader to read in data
+                    InputStream iStream = httpURLConnection.getInputStream();
+                    BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
+                    String line;
+
+                    while ((line = bReader.readLine()) != null) {
+                        // while loop to loop through data
+                        data = data + line;
+                    }
+
+
+                    if (!data.isEmpty()) {
+                        // JSON stuff to temporarily keep data that is fetched
+                        JSONObject jObject = new JSONObject(data);
+                        JSONArray menu = jObject.getJSONArray("menus");
+                        menuList.clear();
+                        // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
+                        JSONObject menuType = menu.getJSONObject(0);
+                        // from menuType, make an array for foods
+                        JSONArray menuItems = menuType.getJSONArray("foods");
+
+                        for (int i = 0; i < menuItems.length(); i++) {
+                            // from the foods array, get the specific value from the corresponding key
+                            JSONObject food = menuItems.getJSONObject(i);
+                            String menuItemName = food.getString("name");
+                            String menuItemId = food.getString("menuItemId");
+                            String menuItemCategory = food.getString("category");
+
+                            String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
+
+                            breakfastMenu[i] = new MenuItem(menuItemName, menuItemId, menuItemCategory);
+
+                            Map<String, String> data = new HashMap<>(2);
+                            data.put("category", MenuItem.getCategory(breakfastMenu[i]));
+                            data.put("name", MenuItem.getName(breakfastMenu[i]));
+
+                            menuList.add(data);
+                        }
+                    }
+
+                    // previous attempt to show that I actually do code a lot of different methods
+                    // but normally end up erasing anything I don't use because it clutters the codebase
 //                if (!data.isEmpty()) {
 //                    // JSON stuff to temporarily keep data that is fetched
 //                    JSONObject jObject = new JSONObject(data);
@@ -207,30 +214,76 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }
 
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                menuHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (progressDialog.isShowing()) {
+                            // check if progress is showing, aka done
+                            progressDialog.dismiss();
+                        }
+                        menuAdapter.notifyDataSetChanged();
+
+                    }
+                });
             }
 
-            menuHandler.post(new Runnable() {
-                @Override
-                public void run() {
-
-                    if (progressDialog.isShowing()) {
-                        // check if progress is showing, aka done
-                        progressDialog.dismiss();
-                    }
-                    menuAdapter.notifyDataSetChanged();
-
-                }
-            });
-
         }
-        }
-    }
+
+
+            // tried to make a way to use the already made array instead of
+                // connecting to server again to request it
+//        } else if (menuSize <= 1) {
+//                if (!data.isEmpty()) {
+//
+//                    menuHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // small little thing giving feedback telling the user something is happening
+//                            progressDialog = new ProgressDialog(MainActivity.this);
+//                            progressDialog.setMessage("Fetching Breakfast Menu...");
+//                            progressDialog.setCancelable(false);
+//                            progressDialog.show();
+//
+//                        }
+//                    });
+//
+//                    menuList.clear();
+//
+//                    for (int i = 0; i < 5; i++) {
+//                        Map<String, String> data = new HashMap<>(2);
+//                        // data.put("category", MenuItem.getCategory(breakfastMenu[i]));
+//                        // data.put("name", MenuItem.getName(breakfastMenu[i]));
+//                        data.put("category", "it worked");
+//                        data.put("name", "it worked");
+//
+//
+//                        menuList.add(data);
+//                    }
+//                    menuHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            if (progressDialog.isShowing()) {
+//                                // check if progress is showing, aka done
+//                                progressDialog.dismiss();
+//                            }
+//                            menuAdapter.notifyDataSetChanged();
+//
+//                        }
+//                    });
+//                }
+//            }
+//         }
+//    }
 
     class fetchLunchMenu extends Thread {
         // thread to do it in the background

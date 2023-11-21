@@ -1,9 +1,13 @@
 package csustan.edu.cs4800.warriordiningapp;
 
 public class MenuItem {
-    private String name;
-    private String menuItemId;
-    private String category;
+    private static String name;
+    private static String menuItemId;
+    private static String category;
+
+    public MenuItem() {
+
+    }
 
     public MenuItem(String name, String menuItemId, String category) {
         this.name = name;
@@ -11,7 +15,7 @@ public class MenuItem {
         this.category = category;
     }
 
-    public int menuLength(MenuItem[] menu) {
+    public static int menuLength(MenuItem[] menu) {
         int menuSize = menu.length;
 
         return menuSize;
@@ -33,7 +37,7 @@ public class MenuItem {
         return name + " " + menuItemId + " " + category;
     }
 
-    public String getName() {
+    public static String getName(MenuItem menu) {
         return name;
     }
 
@@ -41,7 +45,7 @@ public class MenuItem {
         return menuItemId;
     }
 
-    public String getCategory() {
+    public static String getCategory(MenuItem breakfastMenu) {
         return category;
     }
 
