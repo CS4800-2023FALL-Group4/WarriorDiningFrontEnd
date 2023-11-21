@@ -71,10 +71,32 @@
         android:layout_alignParentBottom="false" />
 
     <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="70dp"
+        android:id="@+id/startLoginButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:text="Start Login" />
+
+    <!-- Login Screen UI components -->
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startLoginButton"
+        android:layout_marginTop="16dp"
+        android:hint="Email"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailEditText"
+        android:layout_marginTop="16dp"
+        android:text="Login"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
 
 
 

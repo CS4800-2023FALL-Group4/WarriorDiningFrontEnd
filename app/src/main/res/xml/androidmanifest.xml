@@ -11,7 +11,6 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:host= "example.com/link" android:scheme="http" />
-                <data android:host= "example.com/link" android:scheme="https" />
 
                 <data android:host="warriordiningapp.page.link.com" />
             </intent-filter>

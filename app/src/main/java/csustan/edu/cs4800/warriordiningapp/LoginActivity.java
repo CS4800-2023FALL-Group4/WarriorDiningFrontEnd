@@ -28,9 +28,11 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 
-//* public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText;
+
+
     private Button buttonLogin;
     private FirebaseAuth mAuth;
 
@@ -64,20 +66,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
         return;
     }
 
-            // Perform login
-                mAuth.sendSignInLinkToEmail(email, getActionCodeSetting(email)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    // Email sent, show success message
-                                    showEmailSentMessage();
-                                } else {
-                                    // Handle errors
-                                    handleLoginError(task.getException());
-                                }
-                            }
-                        }));
+
             }
 
 
@@ -150,7 +139,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
                         }
                     });
         }
-    } } *//
+    } }
 
 
 
