@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;    // gotta bind the fragment
     // ArrayList<String> menuList;     // ArrayList for menu later
-    List<Map<String, String>> menuList = new ArrayList<Map<String, String>>();
+    List<Map<String, String>> menuList = new ArrayList<Map<String, String>>(); // new and improved menuList
+    // using this method to make it easy for inputting subitems into the listview later on
     SimpleAdapter menuAdapter;
     Handler menuHandler = new Handler();
     ProgressDialog progressDialog;
