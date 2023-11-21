@@ -1,7 +1,7 @@
-//* xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.yourapp">
+    package="csustan.edu.cs4800.warriordiningap">
 
     <application>
         <activity android:name=".LoginActivity">
@@ -13,11 +13,11 @@
                 <data android:host= "example.com/link" android:scheme="http" />
                 <data android:host= "example.com/link" android:scheme="https" />
 
-                <data android:host="myownpersonaldomain.com" />
+                <data android:host="warriordiningapp.page.link.com" />
             </intent-filter>
         </activity>
 
         <!-- Add other activities, services, etc., as needed -->
 
     </application>
-</manifest> * //
+</manifest>

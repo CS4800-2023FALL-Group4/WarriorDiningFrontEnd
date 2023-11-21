@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C30000"
+    android:background="#ffffff"
     tools:context=".MainActivity">
 
     <TextView
@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:background="#FF0000"
+        android:paddingTop="10sp"
         android:text="Warrior Dining"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -24,58 +25,57 @@
         android:layout_below="@id/warriorDiningText"
         android:layout_alignRight="@id/warriorDiningText"
         android:layout_marginTop="-7dp"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/warriorDiningText"
-        android:layout_toLeftOf="@id/prefButton">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/breakfastTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breakfast" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/lunchTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lunch" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/dinnerTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Din Din" />
-    </com.google.android.material.tabs.TabLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/prefButton">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/menuBreakfast"
-                android:layout_width="match_parent"
-                android:layout_height="680dp"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:scrollbars="vertical" />
-        </LinearLayout>
-    </ScrollView>
+        app:srcCompat="@android:drawable/ic_menu_manage"
+        android:backgroundTint="@color/design_default_color_error" />
 
     <Button
-        android:id="@+id/Login"
+        android:id="@+id/fetchBreakfastMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/prefButton"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="6dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@color/white"
+        android:text="Breakfast" />
+
+    <Button
+        android:id="@+id/fetchLunchMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/fetchBreakfastMenuButton"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@color/white"
+        android:text="Lunch" />
+
+    <Button
+        android:id="@+id/fetchDinnerMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@id/prefButton"
+        android:layout_toRightOf="@id/fetchLunchMenuButton"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@color/white"
+        android:text="Dinner" />
+
+    <ListView
+        android:id="@+id/menuList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prefButton"
+        android:layout_alignParentBottom="false" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         android:text="Login" />
+
+
 
 </RelativeLayout>

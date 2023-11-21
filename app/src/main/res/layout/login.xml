@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <?xml version="1.0" encoding="utf-8"?>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,12 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="300dp"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:padding="16dp" />
 
         <Button
-            android:id="@+id/sendLinkButton"
+            android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/emailEditText"
