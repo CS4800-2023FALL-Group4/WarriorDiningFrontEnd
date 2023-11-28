@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     // small little thing giving feedback telling the user something is happening
                     progressDialog = new ProgressDialog(MainActivity.this);
-                    progressDialog.setMessage("Fetching Breakfast Menu...");
+                    progressDialog.setMessage("Fetching Lunch Menu...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
 
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     // small little thing giving feedback telling the user something is happening
                     progressDialog = new ProgressDialog(MainActivity.this);
-                    progressDialog.setMessage("Fetching Breakfast Menu...");
+                    progressDialog.setMessage("Fetching Dinner Menu...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
 
