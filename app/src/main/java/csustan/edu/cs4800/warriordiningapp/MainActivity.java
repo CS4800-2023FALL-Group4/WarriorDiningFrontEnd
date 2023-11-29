@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
         // sets the view to main activity
         setContentView(binding.getRoot());
 
@@ -524,6 +525,9 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject menuType;
 
+                    String testV = "Things";
+                    String testV1 = "Are Messed Up";
+
                     // which menu? 0-100000 brkfst, 100001-170000 lunch, 170001-235959 dinner
                     // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
                     // JSONObject menuType = menu.getJSONObject(0);
@@ -534,12 +538,15 @@ public class MainActivity extends AppCompatActivity {
                     } else if (fTime < 235959 && fTime > 170001 ) {
                         menuType = menu.getJSONObject(2);
                     } else {
-                        menuType = menu.getJSONObject(0);
+                        menuType = new JSONObject("");
+                        Map<String, String> data = new HashMap<>(2);
+                        data.put("category", testV);
+                        data.put("name", testV1);
+                        menuList.add(data);
                     }
 
                     // from menuType, make an array for foods
                     JSONArray menuItems = menuType.getJSONArray("foods");
-
 
                     for (int i = 0; i < menuItems.length(); i++) {
                         // from the foods array, get the specific value from the corresponding key
