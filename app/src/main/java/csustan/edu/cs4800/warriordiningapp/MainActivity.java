@@ -24,8 +24,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -504,10 +507,39 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jObject = new JSONObject(data);
                     JSONArray menu = jObject.getJSONArray("menus");
                     menuList.clear();
+                    // get current time
+                    Date time = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    // format time to just time
+                    String currentDateTime = sdf.format(time);
+                    String currentTime = currentDateTime.split(" ")[1];
+                    String finalTime = "";
+                    // format time to just number
+                    for (int i = 0 ; i <= 2 ; i++) {
+                        finalTime += currentTime.split(":")[i];
+                    }
+
+                    // finalTime to int
+                    int fTime = Integer.parseInt(finalTime);
+
+                    JSONObject menuType;
+
+                    // which menu? 0-100000 brkfst, 100001-170000 lunch, 170001-235959 dinner
                     // which menu? 0 = breakfast, 1 = lunch, 2 = dinner
-                    JSONObject menuType = menu.getJSONObject(0);
+                    // JSONObject menuType = menu.getJSONObject(0);
+                    if (fTime < 100000) {
+                        menuType = menu.getJSONObject(0);
+                    } else if (fTime < 170000 && fTime > 100001) {
+                        menuType = menu.getJSONObject(1);
+                    } else if (fTime < 235959 && fTime > 170001 ) {
+                        menuType = menu.getJSONObject(2);
+                    } else {
+                        menuType = menu.getJSONObject(0);
+                    }
+
                     // from menuType, make an array for foods
                     JSONArray menuItems = menuType.getJSONArray("foods");
+
 
                     for (int i = 0; i < menuItems.length(); i++) {
                         // from the foods array, get the specific value from the corresponding key
