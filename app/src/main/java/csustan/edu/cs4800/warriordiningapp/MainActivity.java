@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;    // gotta bind the fragment
     // ArrayList<String> menuList;     // ArrayList for menu later
-    List<Map<String, String>> menuList = new ArrayList<Map<String, String>>(); // new and improved menuList
+    List<Map<String, String>> menuList = new ArrayList<>(); // new and improved menuList
     // using this method to make it easy for inputting subitems into the listview later on
     SimpleAdapter menuAdapter;
     Handler menuHandler = new Handler();
@@ -91,17 +91,14 @@ public class MainActivity extends AppCompatActivity {
     private void initializeMenu() {
         // making menu array and adapter to populate the listview
         menuList = new ArrayList<>();
+        // can I sort this ArrayList of hashmaps? Would it help anything?
         menuAdapter = new SimpleAdapter(this, menuList, android.R.layout.simple_list_item_2,
                 new String[]{"name", "category"},
                 new int[]{android.R.id.text1, android.R.id.text2});
         binding.menuList.setAdapter(menuAdapter);
-
     }
 
-    // make separate fetch menu methods
-    // fetchBreakfast()
-    //
-
+    // separate fetch menu methods
 
     class fetchBreakfastMenu extends Thread {
         // thread to do it in the background
@@ -172,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                         // this works partially... It adds the json arrays together...
                         // but for whatever reason it doesn't sort the way I think it should...
                         // Does listview have its own sorting mechanism?
+                        // Kirk said it may be an artifact from the server's menu return
                         JSONArray fullMenu = new JSONArray();
                         for (int j = 0; j < sortedMenu.length(); j++) {
                             fullMenu.put(sortedMenu.get(j));
