@@ -5,6 +5,7 @@ package csustan.edu.cs4800.warriordiningapp;
 import csustan.edu.cs4800.warriordiningapp.MenuItem.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Insert;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -150,13 +151,32 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject menuType = menu.getJSONObject(0);
                         // from menuType, make an array for foods
                         JSONArray menuItems = menuType.getJSONArray("foods");
+                        JSONArray sortedMenu = new JSONArray(99);
+                        JSONArray unsortedMenu = new JSONArray(99);
 
+                        // sorting recommendations to the top
                         for (int i = 0; i < menuItems.length(); i++) {
-                            // from the foods array, get the specific value from the corresponding key
                             JSONObject food = menuItems.getJSONObject(i);
                             String menuItemName = food.getString("name");
                             String menuItemId = food.getString("menuItemId");
                             String menuItemCategory = food.getString("category");
+
+                            if (menuItemCategory.contains("recommended")) {
+                                sortedMenu.put(food.toString());
+                            } else {
+                                unsortedMenu.put(food.toString());
+                            }
+                        }
+
+                        sortedMenu.put(unsortedMenu);
+
+                        for (int i = 0; i < menuItems.length(); i++) {
+                            // from the foods array, get the specific value from the corresponding key
+                            JSONObject foodItem = sortedMenu.getJSONObject(i);
+
+                            String menuItemName = foodItem.getString("name");
+                            String menuItemId = foodItem.getString("menuItemId");
+                            String menuItemCategory = foodItem.getString("category");
 
                             String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
 
@@ -168,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
                             menuList.add(data);
                         }
+
                     }
 
                     // previous attempt to show that I actually do code a lot of different methods
