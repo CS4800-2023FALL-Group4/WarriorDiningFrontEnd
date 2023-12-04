@@ -1,194 +1,79 @@
 //* package csustan.edu.cs4800.warriordiningapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import static com.google.firebase.FirebaseApp.initializeApp;
 
 import android.os.Bundle;
-import android.view.View;
-
-
-import android.widget.Button;
-import android.widget.EditText;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-
-import android.widget.Button;
-import android.widget.Toast;
-
-import android.widget.Button;
-
-
-
-
-
-import android.content.Intent;
-import android.net.Uri;
-import android.nfc.Tag;
-import android.text.TextUtils;
-import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 
+public class MainActivity extends SharedPreferencesActivity {
+    private final String TAG = MainActivity.class.getCanonicalName();
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private FirebaseAuth mAuth;
-    private EditText emailEditText;
-    private Button startLoginButton;
-    private Button loginButton;
+    private FirebaseAuth firebaseAuth;
 
 
 
-
-
-
-    @Override
-    public void onClick(View view) {
-//        int id = view.getId();
-//        switch (id) {
-//            case R.id.prefButton;
-//            // switch fragment to preferences tab and/or preferences screen
-//                // fragment is like the activity_main ui, a new fragment is like a new page
-//                // a screen is like an overlay over activity_main, it pauses activity_main
-//            break;
-//        }
-    }
-
-
-    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-
-        mAuth = FirebaseAuth.getInstance();
-        View buttonLogin = findViewById(R.id.buttonLogin);
-
-        emailEditText = findViewById(R.id.emailEditText);
-
-
-        buttonLogin .setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                // Call a method to perform login
-                performLogin();
-            }
-        });
+        Log.d(TAG, "onCreate");
+        initializeApp(this);
+        setContentView(R.layout.activity_main);
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    private void performLogin(){
-        String email = emailEditText.getText().toString().trim();
-        // Check if the email is valid
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-            return;
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            setUISignedIn(currentUser);
+        } else {
+            setUISignedOut(null);
         }
-
-
     }
 
 
 
+    protected void setUISignedIn(FirebaseUser currentUser) {
+        Log.d(TAG, "setUISignedIn");
 
-
-    private void showEmailSentMessage() {
-        Toast.makeText(this, "Email sent. Check your email to complete the login process.", Toast.LENGTH_SHORT).show();
-        //  Navigate to the next activity or perform other actions
-    }
-    private void handleLoginError(Exception exception) {
-        // Handle specific error cases
-        if (exception instanceof FirebaseAuthInvalidUserException) {
-            // The user does not exist, show appropriate message
-            Toast.makeText(this, "User does not exist. Please sign up.", Toast.LENGTH_SHORT).show();
-        } else if (exception instanceof FirebaseAuthException) {
-            // Other FirebaseAuthException, show a generic error message
-            Toast.makeText(this, "Login failed. Please try again.", Toast.LENGTH_SHORT).show();
+        String foundEmail = currentUser.getEmail();
+        Log.d(TAG, "setUISignedIn finds foundEmail to be " + foundEmail);
+        if (foundEmail != null && !foundEmail.isEmpty()) {
+            TextView tv = findViewById(R.id.tvUsername);
+            tv.setText(foundEmail);
+        } else{
+            TextView tv = findViewById(R.id.tvUsername);
+            tv.setText("Not signed in");
         }
-        // Handle other specific error cases if needed
     }
 
-
-    private void sendSignInLink(String Email) {
-        ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
-                // URL you want to redirect back to. The domain (www.example.com) for this
-                // URL must be whitelisted in the Firebase Console.
-                .setUrl("https://warriordiningapp.page.link/warrior1")
-                // This must be true
-                .setHandleCodeInApp(true)
-                .setAndroidPackageName(
-                        "com.example.android",
-                        true, /* installIfNotAvailable */
-                        "12"    /* minimumVersion */)
-                .build();
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.sendSignInLinkToEmail(Email, actionCodeSettings)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Email link sent. Check your email.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Error sending email link", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void handleEmailVerification() {
-        Intent intent = getIntent();
-        Uri emailLink = intent.getData();
-
-        if (emailLink != null && mAuth.isSignInWithEmailLink(emailLink.toString())) {
-            String email = "Someemail@domain.com";
-
-            mAuth.signInWithEmailLink(email, emailLink.toString())
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "Successfully signed in with email link!");
-                                Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Log.e(TAG, "Error signing in with email link", task.getException());
-                                Toast.makeText(MainActivity.this, "Error signing in with email link", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+    protected void setUISignedOut(String errorMessage) {
+        Log.d(TAG, "setUISignedOut");
+        if (errorMessage != null) {
+            TextView tvIn = findViewById(R.id.tvInstructions);
+            tvIn.setVisibility(View.VISIBLE);
+            tvIn.setText(errorMessage);
         }
-    } }   *//
-
-
-
-
-
-
-
-
-
-
-
-
+        TextView tv = findViewById(R.id.tvSignedIn);
+        tv.setVisibility(View.INVISIBLE);
+        String tmpEmail = getTemporarilySavedEmail();
+        Log.d(TAG, "Found tmpEmail " + tmpEmail);
+        if (!tmpEmail.isEmpty()) {
+            Log.d(TAG, "Setting email to tmpEmail");
+            EditText et = findViewById(R.id.editText);
+            et.setText(tmpEmail);
+        }
+    }
+}*//

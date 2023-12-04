@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">WarriorDiningApp</string>
     <string name="email">Email</string>
+    <string name="instructions">Enter your email address to sign in to our awesome app!</string>
+    <string name="empty"></string>
+    <string name="sign_in">Sign in</string>
+    <string name="signed_in">Signed In</string>
+    <string name="success_email_sent">Email sent successfully!</string>
+    <string name="not_success_email_sent">Email sending failed.</string>
+
+
 </resources>
