@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     // connecting to our backend
                     URL url = new URL("https://warrior-dining-server.replit.app/menu");
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestProperty("Authorization", "Fake User Id");
                     // creating an inputstream and bufferedreader to read in data
                     InputStream iStream = httpURLConnection.getInputStream();
                     BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
