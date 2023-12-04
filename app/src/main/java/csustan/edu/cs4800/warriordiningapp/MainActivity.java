@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                             String menuItemCategory = food.getString("category");
 
 
-                            if (!menuItemCategory.contains("recommended")) {
+                            if (!menuItemCategory.contains("Recommended")) {
                                 sortedMenu.put(food);
                             } else {
                                 unsortedMenu.put(food);
@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
@@ -493,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
@@ -646,7 +646,7 @@ public class MainActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
