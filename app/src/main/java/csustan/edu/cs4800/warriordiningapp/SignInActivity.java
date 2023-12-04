@@ -1,4 +1,4 @@
-////* package csustan.edu.cs4800.warriordiningapp;
+ package csustan.edu.cs4800.warriordiningapp;
 
 
 
@@ -175,4 +175,4 @@ public class SignInActivity<FirebaseUser> extends SharedPreferencesActivity impl
         tv.setText(errorMessage);
     }
 
-} *////
+}

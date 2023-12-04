@@ -1,4 +1,4 @@
-//* package csustan.edu.cs4800.warriordiningapp;
+////* package csustan.edu.cs4800.warriordiningapp;
 
 
 import static com.google.firebase.FirebaseApp.initializeApp;
@@ -76,4 +76,4 @@ public class MainActivity extends SharedPreferencesActivity {
             et.setText(tmpEmail);
         }
     }
-}*//
+} *////
