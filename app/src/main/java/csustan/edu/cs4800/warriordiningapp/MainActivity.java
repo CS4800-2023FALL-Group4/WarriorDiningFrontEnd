@@ -1,4 +1,4 @@
-////* package csustan.edu.cs4800.warriordiningapp;
+package csustan.edu.cs4800.warriordiningapp;
 
 
 import static com.google.firebase.FirebaseApp.initializeApp;
@@ -13,11 +13,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class MainActivity extends SharedPreferencesActivity {
     private final String TAG = MainActivity.class.getCanonicalName();
 
     private FirebaseAuth firebaseAuth;
-
 
 
 
@@ -76,4 +76,4 @@ public class MainActivity extends SharedPreferencesActivity {
             et.setText(tmpEmail);
         }
     }
-} *////
+}
