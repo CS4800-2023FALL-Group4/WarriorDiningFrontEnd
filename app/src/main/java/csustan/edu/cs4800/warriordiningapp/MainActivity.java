@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject menuType = menu.getJSONObject(0);
                         // from menuType, make an array for foods
                         JSONArray menuItems = menuType.getJSONArray("foods");
-                        JSONArray sortedMenu = new JSONArray(99);
-                        JSONArray unsortedMenu = new JSONArray(99);
+                        JSONArray sortedMenu = new JSONArray();
+                        JSONArray unsortedMenu = new JSONArray();
 
                         // sorting recommendations to the top
                         for (int i = 0; i < menuItems.length(); i++) {
@@ -161,30 +161,39 @@ public class MainActivity extends AppCompatActivity {
                             String menuItemId = food.getString("menuItemId");
                             String menuItemCategory = food.getString("category");
 
-                            if (menuItemCategory.contains("recommended")) {
-                                sortedMenu.put(food.toString());
+
+                            if (!menuItemCategory.contains("recommended")) {
+                                sortedMenu.put(food);
                             } else {
-                                unsortedMenu.put(food.toString());
+                                unsortedMenu.put(food);
                             }
                         }
 
-                        sortedMenu.put(unsortedMenu);
+                        // this works partially... It adds the json arrays together...
+                        // but for whatever reason it doesn't sort the way I think it should...
+                        // Does listview have its own sorting mechanism?
+                        JSONArray fullMenu = new JSONArray();
+                        for (int j = 0; j < sortedMenu.length(); j++) {
+                            fullMenu.put(sortedMenu.get(j));
+                        }
 
-                        for (int i = 0; i < menuItems.length(); i++) {
+                        for (int k = 0; k < unsortedMenu.length(); k++) {
+                            fullMenu.put(unsortedMenu.get(k));
+                        }
+
+                        for (int l = 0; l < menuItems.length(); l++) {
                             // from the foods array, get the specific value from the corresponding key
-                            JSONObject foodItem = sortedMenu.getJSONObject(i);
+                            JSONObject foodItem = fullMenu.getJSONObject(l);
 
-                            String menuItemName = foodItem.getString("name");
-                            String menuItemId = foodItem.getString("menuItemId");
-                            String menuItemCategory = foodItem.getString("category");
+                            String foodItemName = foodItem.getString("name");
+                            String foodItemId = foodItem.getString("menuItemId");
+                            String foodItemCategory = foodItem.getString("category");
 
-                            String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
-
-                            breakfastMenu[i] = new MenuItem(menuItemName, menuItemId, menuItemCategory);
+                            String fullMenuItem = "Item: " + foodItemName + "   Location: " + foodItemCategory;
 
                             Map<String, String> data = new HashMap<>(2);
-                            data.put("category", MenuItem.getCategory(breakfastMenu[i]));
-                            data.put("name", MenuItem.getName(breakfastMenu[i]));
+                            data.put("category", foodItemCategory);
+                            data.put("name", foodItemName);
 
                             menuList.add(data);
                         }
@@ -357,19 +366,49 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject menuType = menu.getJSONObject(1);
                     // from menuType, make an array for foods
                     JSONArray menuItems = menuType.getJSONArray("foods");
+                    JSONArray sortedMenu = new JSONArray();
+                    JSONArray unsortedMenu = new JSONArray();
 
+                    // sorting recommendations to the top
                     for (int i = 0; i < menuItems.length(); i++) {
-                        // from the foods array, get the specific value from the corresponding key
                         JSONObject food = menuItems.getJSONObject(i);
                         String menuItemName = food.getString("name");
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
+
+                        if (!menuItemCategory.contains("recommended")) {
+                            sortedMenu.put(food);
+                        } else {
+                            unsortedMenu.put(food);
+                        }
+                    }
+
+                    // this works partially... It adds the json arrays together...
+                    // but for whatever reason it doesn't sort the way I think it should...
+                    // Does listview have its own sorting mechanism?
+                    JSONArray fullMenu = new JSONArray();
+                    for (int j = 0; j < sortedMenu.length(); j++) {
+                        fullMenu.put(sortedMenu.get(j));
+                    }
+
+                    for (int k = 0; k < unsortedMenu.length(); k++) {
+                        fullMenu.put(unsortedMenu.get(k));
+                    }
+
+                    for (int l = 0; l < menuItems.length(); l++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject foodItem = fullMenu.getJSONObject(l);
+
+                        String foodItemName = foodItem.getString("name");
+                        String foodItemId = foodItem.getString("menuItemId");
+                        String foodItemCategory = foodItem.getString("category");
+
+                        String fullMenuItem = "Item: " + foodItemName + "   Location: " + foodItemCategory;
 
                         Map<String, String> data = new HashMap<>(2);
-                        data.put("category", menuItemCategory);
-                        data.put("name", menuItemName);
+                        data.put("category", foodItemCategory);
+                        data.put("name", foodItemName);
 
                         menuList.add(data);
                     }
@@ -445,19 +484,49 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject menuType = menu.getJSONObject(2);
                     // from menuType, make an array for foods
                     JSONArray menuItems = menuType.getJSONArray("foods");
+                    JSONArray sortedMenu = new JSONArray();
+                    JSONArray unsortedMenu = new JSONArray();
 
+                    // sorting recommendations to the top
                     for (int i = 0; i < menuItems.length(); i++) {
-                        // from the foods array, get the specific value from the corresponding key
                         JSONObject food = menuItems.getJSONObject(i);
                         String menuItemName = food.getString("name");
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
+
+                        if (!menuItemCategory.contains("recommended")) {
+                            sortedMenu.put(food);
+                        } else {
+                            unsortedMenu.put(food);
+                        }
+                    }
+
+                    // this works partially... It adds the json arrays together...
+                    // but for whatever reason it doesn't sort the way I think it should...
+                    // Does listview have its own sorting mechanism?
+                    JSONArray fullMenu = new JSONArray();
+                    for (int j = 0; j < sortedMenu.length(); j++) {
+                        fullMenu.put(sortedMenu.get(j));
+                    }
+
+                    for (int k = 0; k < unsortedMenu.length(); k++) {
+                        fullMenu.put(unsortedMenu.get(k));
+                    }
+
+                    for (int l = 0; l < menuItems.length(); l++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject foodItem = fullMenu.getJSONObject(l);
+
+                        String foodItemName = foodItem.getString("name");
+                        String foodItemId = foodItem.getString("menuItemId");
+                        String foodItemCategory = foodItem.getString("category");
+
+                        String fullMenuItem = "Item: " + foodItemName + "   Location: " + foodItemCategory;
 
                         Map<String, String> data = new HashMap<>(2);
-                        data.put("category", menuItemCategory);
-                        data.put("name", menuItemName);
+                        data.put("category", foodItemCategory);
+                        data.put("name", foodItemName);
 
                         menuList.add(data);
                     }
@@ -544,7 +613,7 @@ public class MainActivity extends AppCompatActivity {
                     // finalTime to int
                     int fTime = Integer.parseInt(finalTime);
 
-                    JSONObject menuType;
+                    JSONObject menuType = new JSONObject();
 
                     String testV = "Things";
                     String testV1 = "Are Messed Up";
@@ -568,22 +637,76 @@ public class MainActivity extends AppCompatActivity {
 
                     // from menuType, make an array for foods
                     JSONArray menuItems = menuType.getJSONArray("foods");
+                    JSONArray sortedMenu = new JSONArray();
+                    JSONArray unsortedMenu = new JSONArray();
 
+                    // sorting recommendations to the top
                     for (int i = 0; i < menuItems.length(); i++) {
-                        // from the foods array, get the specific value from the corresponding key
                         JSONObject food = menuItems.getJSONObject(i);
                         String menuItemName = food.getString("name");
                         String menuItemId = food.getString("menuItemId");
                         String menuItemCategory = food.getString("category");
 
-                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
+
+                        if (!menuItemCategory.contains("recommended")) {
+                            sortedMenu.put(food);
+                        } else {
+                            unsortedMenu.put(food);
+                        }
+                    }
+
+                    // this works partially... It adds the json arrays together...
+                    // but for whatever reason it doesn't sort the way I think it should...
+                    // Does listview have its own sorting mechanism?
+                    JSONArray fullMenu = new JSONArray();
+                    for (int j = 0; j < sortedMenu.length(); j++) {
+                        fullMenu.put(sortedMenu.get(j));
+                    }
+
+                    for (int k = 0; k < unsortedMenu.length(); k++) {
+                        fullMenu.put(unsortedMenu.get(k));
+                    }
+
+                    for (int l = 0; l < menuItems.length(); l++) {
+                        // from the foods array, get the specific value from the corresponding key
+                        JSONObject foodItem = fullMenu.getJSONObject(l);
+
+                        String foodItemName = foodItem.getString("name");
+                        String foodItemId = foodItem.getString("menuItemId");
+                        String foodItemCategory = foodItem.getString("category");
+
+                        String fullMenuItem = "Item: " + foodItemName + "   Location: " + foodItemCategory;
+
+                        // what was I trying to do here...? Make use of the MenuItem object class?
+//                        breakfastMenu[i] = new MenuItem(foodItemName, foodItemId, foodItemCategory);
+//
+//                        Map<String, String> data = new HashMap<>(2);
+//                        data.put("category", MenuItem.getCategory(breakfastMenu[i]));
+//                        data.put("name", MenuItem.getName(breakfastMenu[i]));
 
                         Map<String, String> data = new HashMap<>(2);
-                        data.put("category", menuItemCategory);
-                        data.put("name", menuItemName);
+                        data.put("category", foodItemCategory);
+                        data.put("name", foodItemName);
 
                         menuList.add(data);
                     }
+
+//
+//                    for (int i = 0; i < menuItems.length(); i++) {
+//                        // from the foods array, get the specific value from the corresponding key
+//                        JSONObject food = menuItems.getJSONObject(i);
+//                        String menuItemName = food.getString("name");
+//                        String menuItemId = food.getString("menuItemId");
+//                        String menuItemCategory = food.getString("category");
+//
+//                        String fullMenuItem = "Item: " + menuItemName + "   Location: " + menuItemCategory;
+//
+//                        Map<String, String> data = new HashMap<>(2);
+//                        data.put("category", menuItemCategory);
+//                        data.put("name", menuItemName);
+//
+//                        menuList.add(data);
+//                    }
                 }
 
             } catch (MalformedURLException e) {
