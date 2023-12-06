@@ -35,18 +35,19 @@ import java.util.List;
 import java.util.Map;
 
 import csustan.edu.cs4800.warriordiningapp.databinding.ActivityMainBinding;
+import csustan.edu.cs4800.warriordiningapp.databinding.ActivityMenuBinding;
 
 // *** Author: Daniel Coffland ***
 
 public class MenuActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;    // gotta bind the fragment
+    ActivityMenuBinding binding;    // gotta bind the fragment
     // ArrayList<String> menuList;     // ArrayList for menu later
     List<Map<String, String>> menuList = new ArrayList<Map<String, String>>(); // new and improved menuList
     // using this method to make it easy for inputting subitems into the listview later on
     SimpleAdapter menuAdapter;
-    Handler menuHandler = new Handler();
     ProgressDialog progressDialog;
+    Handler menuHandler = new Handler();
     public MenuItem breakfastMenu[] = new MenuItem[99];
     public MenuItem lunchMenu[];
     public MenuItem dinnerMenu[];
@@ -54,7 +55,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMenuBinding.inflate(getLayoutInflater());
 
         int count = 0;
 
@@ -155,7 +156,7 @@ public class MenuActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // small little thing giving feedback telling the user something is happening
-                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog = new ProgressDialog(MenuActivity.this);
                     progressDialog.setMessage("Fetching Breakfast Menu...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
@@ -325,7 +326,7 @@ public class MenuActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // small little thing giving feedback telling the user something is happening
-                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog = new ProgressDialog(MenuActivity.this);
                     progressDialog.setMessage("Fetching Lunch Menu...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
@@ -443,7 +444,7 @@ public class MenuActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // small little thing giving feedback telling the user something is happening
-                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog = new ProgressDialog(MenuActivity.this);
                     progressDialog.setMessage("Fetching Dinner Menu...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
@@ -562,7 +563,7 @@ public class MenuActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // small little thing giving feedback telling the user something is happening
-                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog = new ProgressDialog(MenuActivity.this);
                     progressDialog.setMessage("Fetching Menu...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
