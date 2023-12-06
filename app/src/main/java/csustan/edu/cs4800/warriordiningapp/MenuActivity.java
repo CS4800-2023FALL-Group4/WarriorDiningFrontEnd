@@ -585,7 +585,7 @@ public class MenuActivity extends AppCompatActivity {
                 // connecting to our backend
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestProperty("Authorization", username);
+                httpURLConnection.setRequestProperty("Authorization", (username = getIntent().getExtras().getString("username")));
                 httpURLConnection.connect();
                 // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
