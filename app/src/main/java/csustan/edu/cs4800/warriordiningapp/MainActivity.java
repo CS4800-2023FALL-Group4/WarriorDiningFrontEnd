@@ -2,16 +2,15 @@
 
 package csustan.edu.cs4800.warriordiningapp;
 
-import csustan.edu.cs4800.warriordiningapp.MenuItem.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Insert;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import org.json.JSONArray;
@@ -27,13 +26,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.UnaryOperator;
 
 import csustan.edu.cs4800.warriordiningapp.databinding.ActivityMainBinding;
 
@@ -86,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
                 new fetchDinnerMenu().start();
             }
         });
+
+        binding.darkModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                darkMode();
+            }
+        });
+
     }
 
     private void initializeMenu() {
@@ -98,11 +103,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // dark mode
+    public void darkMode () {
+        ListView lv = findViewById(R.id.menuList);
+        lv.setBackgroundColor(Color.BLACK);
+    }
+
     // make separate fetch menu methods
-    // fetchBreakfast()
-    //
-
-
     class fetchBreakfastMenu extends Thread {
         // thread to do it in the background
         // blank string that will be used to concatenate data
@@ -273,52 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-            // tried to make a way to use the already made array instead of
-                // connecting to server again to request it
-//        } else if (menuSize <= 1) {
-//                if (!data.isEmpty()) {
-//
-//                    menuHandler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            // small little thing giving feedback telling the user something is happening
-//                            progressDialog = new ProgressDialog(MainActivity.this);
-//                            progressDialog.setMessage("Fetching Breakfast Menu...");
-//                            progressDialog.setCancelable(false);
-//                            progressDialog.show();
-//
-//                        }
-//                    });
-//
-//                    menuList.clear();
-//
-//                    for (int i = 0; i < 5; i++) {
-//                        Map<String, String> data = new HashMap<>(2);
-//                        // data.put("category", MenuItem.getCategory(breakfastMenu[i]));
-//                        // data.put("name", MenuItem.getName(breakfastMenu[i]));
-//                        data.put("category", "it worked");
-//                        data.put("name", "it worked");
-//
-//
-//                        menuList.add(data);
-//                    }
-//                    menuHandler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            if (progressDialog.isShowing()) {
-//                                // check if progress is showing, aka done
-//                                progressDialog.dismiss();
-//                            }
-//                            menuAdapter.notifyDataSetChanged();
-//
-//                        }
-//                    });
-//                }
-//            }
-//         }
-//    }
+// removed excess old code to clean up
 
     class fetchLunchMenu extends Thread {
         // thread to do it in the background

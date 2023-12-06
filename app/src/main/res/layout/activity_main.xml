@@ -63,12 +63,23 @@
         android:textColor="@color/white"
         android:text="Dinner" />
 
+    <ImageButton
+        android:id="@+id/darkModeButton"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/prefButton"
+        android:layout_alignRight="@id/prefButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:src="@android:drawable/ic_menu_view" />
+
     <ListView
         android:id="@+id/menuList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/prefButton"
-        android:layout_alignParentBottom="false"
-        android:scrollbarSize="12dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/fetchBreakfastMenuButton"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>
