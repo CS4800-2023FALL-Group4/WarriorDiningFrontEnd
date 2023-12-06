@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/theRelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <TextView
@@ -25,8 +26,8 @@
         android:layout_below="@id/warriorDiningText"
         android:layout_alignRight="@id/warriorDiningText"
         android:layout_marginTop="-7dp"
-        app:srcCompat="@android:drawable/ic_menu_manage"
-        android:backgroundTint="@color/design_default_color_error" />
+        android:backgroundTint="@color/design_default_color_error"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
 
     <Button
         android:id="@+id/fetchBreakfastMenuButton"
@@ -37,8 +38,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="6dp"
         android:backgroundTint="@color/design_default_color_error"
-        android:textColor="@color/white"
-        android:text="Breakfast" />
+        android:text="Breakfast"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/fetchLunchMenuButton"
@@ -48,8 +49,8 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/fetchBreakfastMenuButton"
         android:backgroundTint="@color/design_default_color_error"
-        android:textColor="@color/white"
-        android:text="Lunch" />
+        android:text="Lunch"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/fetchDinnerMenuButton"
@@ -60,8 +61,8 @@
         android:layout_toLeftOf="@id/prefButton"
         android:layout_toRightOf="@id/fetchLunchMenuButton"
         android:backgroundTint="@color/design_default_color_error"
-        android:textColor="@color/white"
-        android:text="Dinner" />
+        android:text="Dinner"
+        android:textColor="@color/white" />
 
     <ImageButton
         android:id="@+id/darkModeButton"

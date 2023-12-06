@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 
 import org.json.JSONArray;
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
+        int count = 0;
+
         // sets the view to main activity
         setContentView(binding.getRoot());
 
@@ -84,10 +88,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.theRelativeLayout);
+
         binding.darkModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                darkMode();
+                    darkMode();
             }
         });
 
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeMenu() {
         // making menu array and adapter to populate the listview
         menuList = new ArrayList<>();
-        menuAdapter = new SimpleAdapter(this, menuList, android.R.layout.simple_list_item_2,
+        menuAdapter = new SimpleAdapter(this, menuList, R.layout.testlayout,
                 new String[]{"name", "category"},
                 new int[]{android.R.id.text1, android.R.id.text2});
         binding.menuList.setAdapter(menuAdapter);
@@ -105,8 +111,30 @@ public class MainActivity extends AppCompatActivity {
 
     // dark mode
     public void darkMode () {
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.theRelativeLayout);
         ListView lv = findViewById(R.id.menuList);
-        lv.setBackgroundColor(Color.BLACK);
+        ColorDrawable getRLColor = (ColorDrawable) rl.getBackground();
+        int colorID = getRLColor.getColor();
+
+        if (colorID == (Color.WHITE)) {
+            rl.setBackgroundColor(Color.BLACK);
+            menuAdapter = new SimpleAdapter(this, menuList, R.layout.testlayout2,
+                    new String[]{"name", "category"},
+                    new int[]{android.R.id.text1, android.R.id.text2});
+        }
+        if (colorID == (Color.BLACK)) {
+            rl.setBackgroundColor(Color.WHITE);
+            menuAdapter = new SimpleAdapter(this, menuList, R.layout.testlayout,
+                    new String[]{"name", "category"},
+                    new int[]{android.R.id.text1, android.R.id.text2});
+        }
+    }
+
+    public void lightMode () {
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.theRelativeLayout);
+        ListView lv = findViewById(R.id.menuList);
+        rl.setBackgroundColor(Color.WHITE);
+        lv.setCacheColorHint(Color.BLACK);
     }
 
     // make separate fetch menu methods
