@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{"name", "category"},
                 new int[]{android.R.id.text1, android.R.id.text2});
         binding.menuList.setAdapter(menuAdapter);
-
     }
 
     // dark mode
@@ -118,24 +117,24 @@ public class MainActivity extends AppCompatActivity {
 
         if (colorID == (Color.WHITE)) {
             rl.setBackgroundColor(Color.BLACK);
+            // best way I've found to change the layout back and forth thus far
+            menuList = new ArrayList<>();
             menuAdapter = new SimpleAdapter(this, menuList, R.layout.testlayout2,
                     new String[]{"name", "category"},
                     new int[]{android.R.id.text1, android.R.id.text2});
-        }
-        if (colorID == (Color.BLACK)) {
+            binding.menuList.setAdapter(menuAdapter);
+            new fetchMenu().start();
+        } else if (colorID == (Color.BLACK)) {
             rl.setBackgroundColor(Color.WHITE);
+            menuList = new ArrayList<>();
             menuAdapter = new SimpleAdapter(this, menuList, R.layout.testlayout,
                     new String[]{"name", "category"},
                     new int[]{android.R.id.text1, android.R.id.text2});
+            binding.menuList.setAdapter(menuAdapter);
+            new fetchMenu().start();
         }
     }
 
-    public void lightMode () {
-        RelativeLayout rl = (RelativeLayout)findViewById(R.id.theRelativeLayout);
-        ListView lv = findViewById(R.id.menuList);
-        rl.setBackgroundColor(Color.WHITE);
-        lv.setCacheColorHint(Color.BLACK);
-    }
 
     // make separate fetch menu methods
     class fetchBreakfastMenu extends Thread {
