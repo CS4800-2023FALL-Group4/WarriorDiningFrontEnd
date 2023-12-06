@@ -63,6 +63,8 @@ public class MenuActivity extends AppCompatActivity {
         // getting the username
         String username = getIntent().getExtras().getString("username");
 
+        // checking to make sure data has been passed, two different ones because a few times the
+        // data came through garbled
         Log.d("data passing test", "onCreate: " + username);
         Log.d("data passing test", username.toString());
 
@@ -119,6 +121,7 @@ public class MenuActivity extends AppCompatActivity {
     // in case I need it ever later
     // ?android:attr/listPreferredItemHeight
     // dark mode
+
     public void darkMode () {
         RelativeLayout rl = (RelativeLayout)findViewById(R.id.theRelativeLayout);
         ListView lv = findViewById(R.id.menuList);

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         TextView username = (TextView) findViewById(R.id.usernameText);
         Button loginButton = (Button) findViewById(R.id.loginButton);
 
+        // testing to make sure textview data properly binds
         Log.d("pre-data passing", "onCreate: " + username);
 
 
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                     // username is filled with something
                     // making edit text go to a string value
                     String s_username = username.getText().toString();
+                    // testing to make sure username is changed to a string
+                    Log.d("pre-data passing", "onClick: " + s_username);
                     Toast.makeText(MainActivity.this, "Logging In...", Toast.LENGTH_SHORT).show();
                     // creating an intent and using it to package when changing to menu
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     // not filled, aka do essentially nothing but feedback would be nice
+                    // testing to make sure username is empty
+                    Log.d("pre-data passing", "onClick: " + username.getText().toString());
                     Toast.makeText(MainActivity.this, "Please Input Your Username", Toast.LENGTH_SHORT).show();
                 }
             }
