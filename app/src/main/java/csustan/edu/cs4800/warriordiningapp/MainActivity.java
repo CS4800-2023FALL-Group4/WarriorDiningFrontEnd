@@ -11,12 +11,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -49,8 +51,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText username = (EditText) findViewById(R.id.usernameText);
+        TextView username = (TextView) findViewById(R.id.usernameText);
         Button loginButton = (Button) findViewById(R.id.loginButton);
+
+        Log.d("pre-data passing", "onCreate: " + username);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!(username.getText().toString().equals(""))) {
                     // username is filled with something
                     // making edit text go to a string value
-                    String s_username = username.toString();
-                    Toast.makeText(MainActivity.this, "Logging in...", Toast.LENGTH_SHORT);
+                    String s_username = username.getText().toString();
+                    Toast.makeText(MainActivity.this, "Logging In...", Toast.LENGTH_SHORT).show();
                     // creating an intent and using it to package when changing to menu
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                     // making a bundle to put into extras of intent
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     // not filled, aka do essentially nothing but feedback would be nice
-                    Toast.makeText(MainActivity.this, "Please Input Your Username", Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity.this, "Please Input Your Username", Toast.LENGTH_SHORT).show();
                 }
             }
         });

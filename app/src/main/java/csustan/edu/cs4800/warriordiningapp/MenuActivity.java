@@ -207,7 +207,7 @@ public class MenuActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
@@ -378,7 +378,7 @@ public class MenuActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
@@ -497,7 +497,7 @@ public class MenuActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
@@ -586,6 +586,7 @@ public class MenuActivity extends AppCompatActivity {
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestProperty("Authorization", username);
+                httpURLConnection.connect();
                 // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
                 BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
@@ -651,7 +652,7 @@ public class MenuActivity extends AppCompatActivity {
                         String menuItemCategory = food.getString("category");
 
 
-                        if (!menuItemCategory.contains("recommended")) {
+                        if (!menuItemCategory.contains("Recommended")) {
                             sortedMenu.put(food);
                         } else {
                             unsortedMenu.put(food);
