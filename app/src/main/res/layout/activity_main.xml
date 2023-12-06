@@ -9,78 +9,49 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/warriorDiningText"
+        android:id="@+id/warriorDiningLoginText"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
+        android:layout_height="150dp"
         android:background="#FF0000"
+        android:gravity="center"
         android:paddingTop="10sp"
         android:text="Warrior Dining"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
-
-    <ImageButton
-        android:id="@+id/prefButton"
-        android:layout_width="76dp"
-        android:layout_height="61dp"
-        android:layout_below="@id/warriorDiningText"
-        android:layout_alignRight="@id/warriorDiningText"
-        android:layout_marginTop="-7dp"
-        android:backgroundTint="@color/design_default_color_error"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        android:textSize="60dp" />
 
     <Button
-        android:id="@+id/fetchBreakfastMenuButton"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/prefButton"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="6dp"
+        android:layout_below="@id/usernameText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/design_default_color_error"
-        android:text="Breakfast"
-        android:textColor="@color/white" />
+        android:text="Login"
+        android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/fetchLunchMenuButton"
+    <EditText
+        android:id="@+id/usernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/fetchBreakfastMenuButton"
-        android:backgroundTint="@color/design_default_color_error"
-        android:text="Lunch"
-        android:textColor="@color/white" />
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Username"
+        android:inputType="text"
+        android:textColorHint="@color/design_default_color_error"
+        android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/fetchDinnerMenuButton"
+    <RatingBar
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
-        android:layout_marginLeft="10dp"
-        android:layout_toLeftOf="@id/prefButton"
-        android:layout_toRightOf="@id/fetchLunchMenuButton"
-        android:backgroundTint="@color/design_default_color_error"
-        android:text="Dinner"
-        android:textColor="@color/white" />
-
-    <ImageButton
-        android:id="@+id/darkModeButton"
-        android:layout_width="76dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/prefButton"
-        android:layout_alignRight="@id/prefButton"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/design_default_color_error"
-        android:src="@android:drawable/ic_menu_view" />
-
-    <ListView
-        android:id="@+id/menuList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/fetchBreakfastMenuButton"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="5" />
 
 </RelativeLayout>

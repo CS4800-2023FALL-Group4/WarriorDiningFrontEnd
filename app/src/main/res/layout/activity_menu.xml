@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/theRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/warriorDiningText"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:background="#FF0000"
+        android:paddingTop="10sp"
+        android:text="Warrior Dining"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/prefButton"
+        android:layout_width="76dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/warriorDiningText"
+        android:layout_alignRight="@id/warriorDiningText"
+        android:layout_marginTop="-7dp"
+        android:backgroundTint="@color/design_default_color_error"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
+
+    <Button
+        android:id="@+id/fetchBreakfastMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/prefButton"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="6dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:text="Breakfast"
+        android:textColor="@color/white"
+        app:cornerRadius="0dp"/>
+
+    <Button
+        android:id="@+id/fetchLunchMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/fetchBreakfastMenuButton"
+        android:backgroundTint="@color/design_default_color_error"
+        android:text="Lunch"
+        android:textColor="@color/white"
+        app:cornerRadius="0dp"/>
+
+    <Button
+        android:id="@+id/fetchDinnerMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fetchBreakfastMenuButton"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@id/prefButton"
+        android:layout_toRightOf="@id/fetchLunchMenuButton"
+        android:backgroundTint="@color/design_default_color_error"
+        android:text="Dinner"
+        android:textColor="@color/white"
+        app:cornerRadius="0dp"/>
+
+    <ImageButton
+        android:id="@+id/darkModeButton"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/prefButton"
+        android:layout_alignRight="@id/prefButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:src="@android:drawable/ic_menu_view" />
+
+    <ListView
+        android:id="@+id/menuList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fetchBreakfastMenuButton"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>
