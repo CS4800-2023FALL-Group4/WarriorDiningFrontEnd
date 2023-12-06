@@ -108,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         binding.menuList.setAdapter(menuAdapter);
     }
 
+    // in case I need it ever later
+    // ?android:attr/listPreferredItemHeight
     // dark mode
     public void darkMode () {
         RelativeLayout rl = (RelativeLayout)findViewById(R.id.theRelativeLayout);
