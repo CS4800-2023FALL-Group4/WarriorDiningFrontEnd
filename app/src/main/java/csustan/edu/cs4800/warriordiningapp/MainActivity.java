@@ -55,14 +55,17 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!(username.getText().toString().equals(null))) {
+                if (!(username.getText().toString().equals(""))) {
                     // username is filled with something
                     // making edit text go to a string value
                     String s_username = username.toString();
                     Toast.makeText(MainActivity.this, "Logging in...", Toast.LENGTH_SHORT);
                     // creating an intent and using it to package when changing to menu
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                    intent.putExtra("username", s_username);
+                    // making a bundle to put into extras of intent
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", s_username);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
                     // not filled, aka do essentially nothing but feedback would be nice
