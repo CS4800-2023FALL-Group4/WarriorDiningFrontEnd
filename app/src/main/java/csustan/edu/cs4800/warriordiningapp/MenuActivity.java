@@ -175,7 +175,7 @@ public class MenuActivity extends AppCompatActivity {
                 // connecting to our backend
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                HttpURLConnection.setDefaultRequestProperty("Authorization", username);
+                httpURLConnection.setRequestProperty("Authorization", username);
                 // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
                 BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
@@ -346,7 +346,7 @@ public class MenuActivity extends AppCompatActivity {
                 // connecting to our backend
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                HttpURLConnection.setDefaultRequestProperty("Authorization", username);
+                httpURLConnection.setRequestProperty("Authorization", username);
                 // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
                 BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
@@ -465,7 +465,7 @@ public class MenuActivity extends AppCompatActivity {
                 // connecting to our backend
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                HttpURLConnection.setDefaultRequestProperty("Authorization", username);
+                httpURLConnection.setRequestProperty("Authorization", username);
                 // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
                 BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
@@ -585,7 +585,7 @@ public class MenuActivity extends AppCompatActivity {
                 // connecting to our backend
                 URL url = new URL("https://warrior-dining-server.replit.app/menu");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                HttpURLConnection.setDefaultRequestProperty("Authorization", username);
+                httpURLConnection.setRequestProperty("Authorization", username);
                 // creating an inputstream and bufferedreader to read in data
                 InputStream iStream = httpURLConnection.getInputStream();
                 BufferedReader bReader = new BufferedReader(new InputStreamReader(iStream));
